@@ -76,5 +76,5 @@ Find all the passengers for a specific city
 Given a passenger, find all the drivers who have given that person a ride
 Given a passenger - find the total amount spent on trips in the past day, week, month, year
 Given a passenger - find the shortest/longest trip
-Given a city - find the total money made on trips
-Given a driver - find the total money made
+Given a city - find the total money made on trips.
+Given a driver - find the total money made.
