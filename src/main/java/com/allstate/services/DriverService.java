@@ -30,4 +30,7 @@ public class DriverService {
     public Driver updateDriver(Driver driver){
         return this.driverRepository.save(driver);
     }
+    public boolean isBanned(int id){
+        return this.driverRepository.findOne(id).getViolationCount() > 3 ? true : false;
+    }
 }

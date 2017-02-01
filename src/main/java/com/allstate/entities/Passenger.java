@@ -102,7 +102,8 @@ public class Passenger {
         this.creditBalance = creditBalance;
     }
 
-    @OneToMany(mappedBy = "passenger")
+    @OneToMany(mappedBy = "passenger",cascade = CascadeType.ALL)
+
     @JsonIgnore
     public List<Trip> getTrips() {
         return trips;

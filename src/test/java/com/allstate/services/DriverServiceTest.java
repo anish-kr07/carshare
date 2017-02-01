@@ -72,5 +72,13 @@ public class DriverServiceTest {
         assertEquals(1, after.getVersion());
     }
 
+    @Test
+    public void shouldReturnTrueIfDriverIsBanned() throws Exception{
+        Driver before=  this.driverService.getDriverByID(1);
+        before.setViolationCount(4);
+        Driver after = this.driverService.updateDriver(before);
+        assertEquals(true,this.driverService.isBanned(1));
+    }
+
 
 }
