@@ -15,7 +15,7 @@ public class Trip {
     private int version;
     private double duration;
     private Time startTime;
-    private Time endTime;
+    private Time stopTime;
     private boolean isDay;
     private double distance;
     private double cost;
@@ -23,6 +23,21 @@ public class Trip {
     private double totalCost;
     private Date created;
     private  Date modified;
+    private Passenger passenger;
+
+    public Trip(){}
+
+    public Trip(Time startTime, Time endTime, boolean isDay, double distance, double tip) {
+        this.startTime = startTime;
+        this.stopTime = endTime;
+        this.duration =(this.stopTime.getHours()*60+this.stopTime.getMinutes()) - (this.startTime.getHours()*60+this.startTime.getMinutes());
+        this.isDay = isDay;
+        this.distance = distance;
+        this.tip = tip;
+        this.cost = 0d;
+        this.totalCost = 0d;
+
+    }
 
     @Id
     @GeneratedValue
@@ -62,13 +77,13 @@ public class Trip {
         this.startTime = startTime;
     }
     @NotNull
-    @Column(name="end_time")
-    public Time getEndTime() {
-        return endTime;
+    @Column(name="stop_time")
+    public Time getStopTime() {
+        return stopTime;
     }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setStopTime(Time endTime) {
+        this.stopTime = endTime;
     }
 
     @NotNull
@@ -133,5 +148,15 @@ public class Trip {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="passenger_id")
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 }
