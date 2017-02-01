@@ -1,5 +1,5 @@
 CREATE TABLE cities (
-  `id`        INT         NOT NULL AUTO_INCREMENT,
+  `id`        INT         NOT NULL  AUTO_INCREMENT,
   `version`   INT         NOT NULL  DEFAULT 0,
   `name`      VARCHAR(45) NOT NULL,
   `state`     VARCHAR(45) NOT NULL,

@@ -1,12 +1,14 @@
 package com.allstate.entities;
 
 import com.allstate.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "drivers")
@@ -21,6 +23,7 @@ public class Driver {
     private int violationCount;
     private Date created;
     private  Date modified;
+    private List<Car> cars;
 
     public Driver(){}
 
@@ -113,5 +116,15 @@ public class Driver {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
+    @JsonIgnore
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }

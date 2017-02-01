@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 
@@ -76,6 +77,13 @@ public class TripServiceTest {
         assertEquals(1,trip.getCar().getId());
         assertEquals("Honda",trip.getCar().getMake());
 
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindDriverForGivenTripId() throws Exception{
+        Trip trip = this.tripService.getTripByID(1);
+        assertEquals("Lucie",trip.getCar().getDriver().getName());
     }
 
 }

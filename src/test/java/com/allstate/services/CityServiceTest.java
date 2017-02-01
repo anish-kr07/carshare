@@ -49,31 +49,25 @@ public class CityServiceTest {
     public void shouldGetCityByID() throws Exception{
         City city =  this.cityService.getCityByID(1);
         assertEquals("Pune", city.getName());
-
     }
 
     @Test
     public void shouldGetCityByName() throws Exception{
         City city =  this.cityService.getCityByName("Pune");
         assertEquals(1, city.getId());
-
     }
 
     @Test
     public void shouldGetCitiesByState() throws Exception{
-
         ArrayList<City> cities = (ArrayList) this.cityService.getCitiesByState("Maharashtra");
         assertEquals(2, cities.size());
-
     }
 
     @Test
     public void shouldRemoveCity() throws Exception{
-
         this.cityService.removeCityByID(1);
         City city =  this.cityService.getCityByID(1);
         assertNull(city);
-
     }
 
 

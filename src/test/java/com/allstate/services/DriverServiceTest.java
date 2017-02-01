@@ -1,6 +1,7 @@
 package com.allstate.services;
 
 import com.allstate.entities.Driver;
+import com.allstate.entities.Trip;
 import com.allstate.enums.Gender;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -39,7 +43,7 @@ public class DriverServiceTest {
     public void shouldCreateDriver() throws Exception{
         Driver before = new Driver("James Bond", 29, Gender.MALE, "USA007");
         Driver after = this.driverService.create(before);
-        assertEquals(2, after.getId());
+        assertEquals(3, after.getId());
     }
 
     @Test
@@ -80,5 +84,18 @@ public class DriverServiceTest {
         assertEquals(true,this.driverService.isBanned(1));
     }
 
+    @Test
+    @Transactional
+    public void shouldGetListOfCarsDrivenByDriver() throws Exception{
+        Driver driver = this.driverService.getDriverByID(1);
+        assertEquals(2,driver.getCars().size());
+    }
+
+    @Test
+    @Transactional
+    public void shouldGetAllTripsByDriverId() throws Exception{
+        List<Trip> trips = this.driverService.getTripsByDriverId(1);
+        assertEquals(2,trips.size());
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.allstate.services;
 
 import com.allstate.entities.Car;
+import com.allstate.entities.Driver;
 import com.allstate.enums.Type;
 import org.junit.After;
 import org.junit.Before;
@@ -22,9 +23,14 @@ import static org.junit.Assert.assertNull;
 @Sql(value = {"/sql/seed.sql"})
 public class CarServiceTest {
     private CarService carService;
+    private DriverService driverService;
     @Autowired
     public void setCarService(CarService carService) {
         this.carService = carService;
+    }
+    @Autowired
+    public void setDriverService(DriverService driverService) {
+        this.driverService = driverService;
     }
 
     @Before
@@ -39,9 +45,12 @@ public class CarServiceTest {
 
     @Test
     public void shouldCreateCar() throws Exception{
+        Driver driver = this.driverService.getDriverByID(1);
         Car before = new Car("Mahindra","Bollero",2013,"MH137933", Type.BASIC);
+        before.setDriver(driver);
         Car after = this.carService.create(before);
         assertEquals(4, after.getId());
+        assertEquals("Lucie",after.getDriver().getName());
     }
 
     @Test
@@ -68,6 +77,14 @@ public class CarServiceTest {
     @Transactional
     public void shouldFindAllTripsByGivenCarId() throws Exception {
         Car car = this.carService.getCarByID(1);
-        assertEquals(1,car.getTrips().size());
+        assertEquals(2,car.getTrips().size());
+    }
+
+    @Test
+    public void shouldFindDriverForGivenCarId() throws Exception{
+        Car car =this.carService.getCarByID(2);
+        assertEquals(1,car.getDriver().getId());
+        assertEquals("Lucie",car.getDriver().getName());
+
     }
 }

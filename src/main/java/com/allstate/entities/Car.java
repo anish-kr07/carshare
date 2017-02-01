@@ -24,6 +24,7 @@ public class Car {
     private Date created;
     private  Date modified;
     private java.util.List<Trip> trips;
+    private Driver driver;
 
     public  Car() {}
     public Car(String make, String model, int year, String carno, Type type) {
@@ -134,5 +135,15 @@ public class Car {
     }
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="driver_id")
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }

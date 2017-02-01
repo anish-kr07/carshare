@@ -1,5 +1,6 @@
 package com.allstate.services;
 
+import com.allstate.entities.Driver;
 import com.allstate.entities.Passenger;
 import com.allstate.enums.Gender;
 import org.junit.After;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -92,6 +94,13 @@ public class PassengerServiceTest {
     public void shouldFindLongestDurationTripForGivenPassengerID() throws Exception {
         double max = this.passengerService.getMaximumDuration(1);
         assertEquals(45,max,0.1);
+    }
+
+    @Test
+    @Transactional
+    public void shouldGetAllDriversForGivenPassengerId() throws Exception{
+        List<Driver> drivers = this.passengerService.getAllDriversByPassengerId(1);
+        assertEquals(1,drivers.size());
     }
 
 }

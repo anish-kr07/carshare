@@ -1,11 +1,13 @@
 package com.allstate.services;
 
+import com.allstate.entities.Driver;
 import com.allstate.entities.Passenger;
 import com.allstate.repositories.IPassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +43,10 @@ public class PassengerService {
     public double getMaximumDuration(int id){
         Optional<BigDecimal> value = this.passengerRepository.maximum(id);
         return value.isPresent() ? value.get().doubleValue() : 0;
+    }
+
+    public List<Driver> getAllDriversByPassengerId(int id){
+        return this.passengerRepository.findAllDriversForPassengerId(id);
     }
 }
 
