@@ -32,7 +32,7 @@ insert into passengers (name,age,gender,credit_balance) values
   ('Chyld', 55, 'MALE', 2000),
   ('Nathan', 30, 'MALE', 4000);
 
-insert into trips (cost,  is_day, distance, duration,  start_time, stop_time, tip, total_cost, passenger_id) VALUES
-  (0,true,15,45,'08:15:00','09:00:00',10,0,1),
-  (0,false,5,20,'08:15:00','08:35:00',0,0,1),
-  (0,true,8,45,'08:15:00','09:00:00',10,0,2);
+insert into trips (cost,  is_day, distance, duration,  start_time, stop_time, tip, total_cost, passenger_id,car_id) VALUES
+  (0,true,15,45,'08:15:00','09:00:00',10,0,1,1),
+  (0,false,5,20,'08:15:00','08:35:00',0,0,1,2),
+  (0,true,8,45,'08:15:00','09:00:00',10,0,2,3);

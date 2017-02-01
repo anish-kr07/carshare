@@ -17,4 +17,8 @@ public class TripService {
     public Trip create(Trip trip){
         return this.tripRepository.save(trip);
     }
+
+    public Trip getTripByID(int id){
+        return this.tripRepository.findOne(id);
+    }
 }

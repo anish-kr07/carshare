@@ -5,6 +5,9 @@ import com.allstate.repositories.IPassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 @Service
 public class PassengerService {
     private IPassengerRepository passengerRepository;
@@ -29,6 +32,15 @@ public class PassengerService {
     }
     public Passenger updatePassenger(Passenger passenger){
         return this.passengerRepository.save(passenger);
+    }
+
+    public double getMinimumDuration(int id){
+        Optional<BigDecimal> value = this.passengerRepository.minimum(id);
+        return value.isPresent() ? value.get().doubleValue() : 0;
+    }
+    public double getMaximumDuration(int id){
+        Optional<BigDecimal> value = this.passengerRepository.maximum(id);
+        return value.isPresent() ? value.get().doubleValue() : 0;
     }
 }
 

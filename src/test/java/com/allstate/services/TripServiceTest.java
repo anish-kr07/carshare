@@ -1,7 +1,9 @@
 package com.allstate.services;
 
+import com.allstate.entities.Car;
 import com.allstate.entities.Passenger;
 import com.allstate.entities.Trip;
+import com.allstate.enums.Gender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 public class TripServiceTest {
     private TripService tripService;
     private PassengerService passengerService;
+    private CarService carService;
 
     @Autowired
     public void setTripService(TripService tripService) {
@@ -31,6 +34,10 @@ public class TripServiceTest {
     @Autowired
     public void setPassengerService(PassengerService passengerService) {
         this.passengerService = passengerService;
+    }
+    @Autowired
+    public void setCarService(CarService carService) {
+        this.carService = carService;
     }
 
     @Before
@@ -46,11 +53,28 @@ public class TripServiceTest {
     @Test
     public void shouldCreateTrip() throws Exception{
         Passenger p = this.passengerService.getPassengerByID(1);
+        Car c = this.carService.getCarByID(1);
         Trip before = new Trip(new Time(8,15,00),new Time(9,00,00),true,8.5d,10);
         before.setPassenger(p);
+        before.setCar(c);
         Trip after = this.tripService.create(before);
         assertEquals(4, after.getId());
         assertEquals(45, after.getDuration(),0.1);
+
+    }
+
+    @Test
+    public void shouldFindPassengerforGivenTripId() throws Exception{
+        Trip trip = this.tripService.getTripByID(1);
+        assertEquals("Chyld",trip.getPassenger().getName());
+        assertEquals(Gender.MALE,trip.getPassenger().getGender());
+    }
+
+    @Test
+    public void shouldFindCarForGivenTripId() throws Exception {
+        Trip trip = this.tripService.getTripByID(1);
+        assertEquals(1,trip.getCar().getId());
+        assertEquals("Honda",trip.getCar().getMake());
 
     }
 

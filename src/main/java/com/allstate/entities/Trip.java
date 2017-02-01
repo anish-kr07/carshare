@@ -24,6 +24,7 @@ public class Trip {
     private Date created;
     private  Date modified;
     private Passenger passenger;
+    private  Car car;
 
     public Trip(){}
 
@@ -158,5 +159,14 @@ public class Trip {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
+    }
+
+    @ManyToOne
+    @JoinColumn(name= "car_id")
+    public Car getCar() {
+        return car;
+    }
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

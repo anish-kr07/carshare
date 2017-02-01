@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -61,5 +62,12 @@ public class CarServiceTest {
         Car car =  this.carService.getCarByID(1);
         assertNull(car);
 
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindAllTripsByGivenCarId() throws Exception {
+        Car car = this.carService.getCarByID(1);
+        assertEquals(1,car.getTrips().size());
     }
 }

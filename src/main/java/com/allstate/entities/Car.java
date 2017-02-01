@@ -1,12 +1,14 @@
 package com.allstate.entities;
 
 import com.allstate.enums.Type;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cars")
@@ -21,6 +23,7 @@ public class Car {
     private int luxCharge;
     private Date created;
     private  Date modified;
+    private java.util.List<Trip> trips;
 
     public  Car() {}
     public Car(String make, String model, int year, String carno, Type type) {
@@ -122,5 +125,14 @@ public class Car {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    @OneToMany(mappedBy = "car")
+    @JsonIgnore
+    public List<Trip> getTrips() {
+        return trips;
+    }
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
     }
 }

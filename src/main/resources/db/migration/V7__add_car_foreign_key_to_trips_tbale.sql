@@ -1,0 +1,2 @@
+ALTER TABLE trips ADD car_id INT NOT NULL;
+ALTER TABLE trips ADD CONSTRAINT fk_car_id FOREIGN KEY (car_id) REFERENCES cars(id);

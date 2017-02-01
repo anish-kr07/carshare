@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class PassengerServiceTest {
     public void shouldCreatePassenger() throws Exception{
         Passenger before = new Passenger("Ramesh",50, Gender.MALE,5000d);
         Passenger after = this.passengerService.create(before);
-        assertEquals(2, after.getId());
+        assertEquals(3, after.getId());
     }
 
     @Test
@@ -70,6 +71,27 @@ public class PassengerServiceTest {
         Passenger after = this.passengerService.updatePassenger(before);
         assertEquals(5000d, after.getCreditBalance(),0.01);
         assertEquals(1, after.getVersion());
+    }
+
+    @Test
+    @Transactional
+    public  void shouldFindAllTheTripsForGivenPassengerID() throws Exception {
+        Passenger passenger = this.passengerService.getPassengerByID(1);
+        assertEquals(2,passenger.getTrips().size());
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindShortestDurationTripForGivenPassengerID() throws Exception{
+        double min = this.passengerService.getMinimumDuration(1);
+        assertEquals(20,min,0.1);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindLongestDurationTripForGivenPassengerID() throws Exception {
+        double max = this.passengerService.getMaximumDuration(1);
+        assertEquals(45,max,0.1);
     }
 
 }
